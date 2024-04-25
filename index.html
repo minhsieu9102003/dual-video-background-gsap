@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="mouse-event"></div>
+    <div class="nav">
+        <button class="button-nav">Character</button>
+        <div class="nav-content">
+            <img class='d1' src="./finn.jpg" alt="">
+            <img class=' d2' src="./jake.jpg" alt="">
+            <img class='d3' src="./marce.jpg" alt="">
+            <img class='d4' src="./pb.jpg" alt="">
+            <img class='d5' src="./lady.jpg" alt="">
+        </div>
+    </div>
+
+    <div class="left">
+        <h1 class="left__title-1 ">COME ALONG</h1>
+        <h1 class="right__title-1">WITH ME</h1>
+        <video muted autoplay loop id="video1" class="video1">
+            <source src="./video1_1.mp4" type="video/mp4">
+            </source>
+
+        </video>
+        <button class="button-1">Character</button>
+    </div>
+    <div class="right">
+        <h1 class="left__title-2">COME ALONG</h1>
+        <h1 class="right__title-2">WITH ME</h1>
+        <video muted autoplay loop id="video2" class="video2">
+            <source src="./video2_2.mp4" type="video/mp4">
+            </source>
+        </video>
+        <button class="button-2">Character</button>
+    </div>
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script>
+        const right = document.querySelector('.right')
+        const button1 = document.querySelector('.button-1')
+        const button2 = document.querySelector('.button-2')
+        const buttonNav = document.querySelector('.button-nav')
+        const nav = document.querySelector('.nav')
+
+        const tl = gsap.timeline({
+            default: {
+                duration: 1, ease: 'power4.inOut'
+            }
+        })
+
+        tl
+            .to(nav, {
+                transform: 'scaleY(100%)'
+            })
+            .to(buttonNav, {
+                transform: 'translateY(0)'
+            }, '<')
+            .to('img', {
+                transform: 'translateX(0) translateY(0)',
+                stagger: .2,
+                opacity: 1
+            })
+        let status = false
+        tl.pause()
+        function setupAnimation() {
+            if (!status) {
+                tl.play()
+                status = true
+            } else {
+                tl.reverse()
+                status = false
+            }
+        }
+        button1.addEventListener('click', (e) => {
+            setupAnimation()
+        })
+        button2.addEventListener('click', (e) => {
+            setupAnimation()
+        })
+        buttonNav.addEventListener('click', (e) => {
+            setupAnimation()
+        })
+        const handleMove = e => {
+            const x = e.clientX / window.innerWidth * 100
+            right.style.clipPath = `inset(0px 0px 0px ${x}%)`
+
+        }
+
+
+        document.body.onmousemove = e => handleMove(e)
+
+    </script>
+</body>
+
+</html>
